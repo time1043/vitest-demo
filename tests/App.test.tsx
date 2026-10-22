@@ -26,6 +26,6 @@ describe('user interactions', async () => {
     expect(buttonElement).toHaveStyle({ backgroundColor: 'hex(#f5222d)' }) // ⚠️
 
     const backgroundColor = window.getComputedStyle(buttonElement).backgroundColor
-    expect(backgroundColor).toBe('rgba(245, 34, 45)') // rgba(0, 0, 0, 0)
+    expect(backgroundColor).toBe('rgb(245, 34, 45)') // rgba(0, 0, 0, 0)
   })
 })
