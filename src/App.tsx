@@ -20,6 +20,8 @@ export default function App() {
 
   return (
     <main>
+      <h1>Dynamic Circle</h1>
+
       <TogglePurple isPurple={isPurple} setIsPurple={setIsPurple} />
 
       <SelectColor textColor={textColor} setTextColor={setTextColor} />
