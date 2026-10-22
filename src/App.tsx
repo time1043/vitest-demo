@@ -1,18 +1,21 @@
 import { useState } from 'react'
 
+import './App.css'
+
 export default function App() {
-  const [count, setCount] = useState(0)
-  const doubleCount = count * 2
+  const [content, setContent] = useState('Click me')
+  const [classes, setClasses] = useState('btn')
+
+  function onClick() {
+    setContent('Active')
+    setClasses('btn active')
+  }
 
   return (
-    <div>
-      <h1>Vite + React</h1>
-      <p className="text-red-400">
-        {count} x 2 = {doubleCount}
-      </p>
-      <button className="btn" onClick={() => setCount(count + 1)}>
-        Increment
+    <>
+      <button onClick={onClick} className={classes}>
+        {content}
       </button>
-    </div>
+    </>
   )
 }
