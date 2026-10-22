@@ -1,13 +1,13 @@
 {
   "name": "vitest-demo",
-  "private": true,
   "version": "0.0.0",
+  "private": true,
   "type": "module",
   "scripts": {
+    "build": "tsc -b && vite build",
+    "dev": "vite",
     "fmt": "oxfmt",
     "fmt:check": "oxfmt --check",
-    "dev": "vite",
-    "build": "tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview"
   },
