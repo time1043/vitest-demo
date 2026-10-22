@@ -6,7 +6,7 @@ export default function App() {
 
   return (
     <div>
-      <p>
+      <p className="text-red-400">
         {count} x 2 = {doubleCount}
       </p>
       <button onClick={() => setCount(count + 1)}>Increment</button>
