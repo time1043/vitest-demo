@@ -12,7 +12,10 @@ render(<TogglePurple {...{ isPurple, setIsPurple }} />)
 test('TogglePurple checkboxElement', () => {
   const checkboxElement = screen.getByRole('checkbox')
 
+  // https://github.com/testing-library/jest-dom#custom-matchers
+  // https://vitest.dev/api/expect#not
   expect(checkboxElement).toBeInTheDocument()
+  expect(checkboxElement).not.toBeChecked()
 })
 
 test('TogglePurple labelElement', () => {
