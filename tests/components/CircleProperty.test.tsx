@@ -1,12 +1,12 @@
-import { render, screen } from '@testing-library/react'
-import { useState } from 'react'
+import { cleanup, render, screen } from '@testing-library/react'
+import { useState, type PropsWithChildren } from 'react'
 
 import CircleProperty from '@/components/CircleProperty'
 
-function CirclePropertyMock() {
+function CirclePropertyMock({ children = 'Demo' }: PropsWithChildren) {
   const [property, setProperty] = useState<number>(0)
 
-  return <CircleProperty {...{ property, setProperty }}>Demo</CircleProperty>
+  return <CircleProperty {...{ property, setProperty }}>{children}</CircleProperty>
 }
 
 beforeEach(() => {
@@ -21,8 +21,14 @@ describe('static render test', async () => {
     expect(inputNumberElement).toBeInTheDocument()
   })
 
-  it('should render the label element correctly', async () => {
-    const labelElement = screen.getByText(/demo/i)
+  it('should render the label element with correct text', async () => {
+    cleanup()
+
+    const labelText = 'Hhh'
+    render(<CirclePropertyMock>{labelText}</CirclePropertyMock>)
+    // screen.debug() // render twice if do not cleanup manually
+
+    const labelElement = screen.getByText(labelText)
 
     expect(labelElement).toBeInTheDocument()
   })
