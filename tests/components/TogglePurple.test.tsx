@@ -1,6 +1,5 @@
 import '@testing-library/jest-dom/vitest'
 import { render, screen } from '@testing-library/react'
-import { it, expect, describe } from 'vitest'
 
 import TogglePurple from '@/components/TogglePurple'
 
@@ -9,7 +8,6 @@ function setIsPurple(isPurple: boolean) {}
 
 render(<TogglePurple {...{ isPurple, setIsPurple }} />)
 
-// deinsoftware.vitest-snippets - `iv`, `ive`
 describe('static render test', () => {
   it('should render the checkbox and the checkbox should not be checked', () => {
     const checkboxElement = screen.getByRole('checkbox')
