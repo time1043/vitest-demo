@@ -3,6 +3,8 @@ import { useState, type PropsWithChildren } from 'react'
 
 import CircleProperty from '@/components/CircleProperty'
 
+import { user } from '../setup'
+
 function CirclePropertyMock({ children = 'Demo' }: PropsWithChildren) {
   const [property, setProperty] = useState<number>(0)
 
@@ -35,5 +37,18 @@ describe('static render test', async () => {
 })
 
 describe('user interactions', async () => {
-  it('', async () => {})
+  it('should display the correct number in the input after user type', async () => {
+    const inputNumber = 1043
+
+    const inputNumberElement = screen.getByRole('spinbutton')
+
+    // https://testing-library.com/docs/user-event/keyboard
+    await user.click(inputNumberElement)
+    await user.keyboard(inputNumber.toString())
+
+    // // https://testing-library.com/docs/user-event/utility#type
+    // await user.type(inputNumberElement, number.toString())
+
+    expect(inputNumberElement).toHaveValue(inputNumber)
+  })
 })
