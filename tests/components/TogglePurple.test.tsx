@@ -1,16 +1,21 @@
 import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import { useState } from 'react'
 
 import TogglePurple from '@/components/TogglePurple'
 
-const isPurple = false
-function setIsPurple(isPurple: boolean) {}
+function TogglePurpleMock() {
+  const [isPurple, setIsPurple] = useState<boolean>(false)
+
+  return <TogglePurple {...{ isPurple, setIsPurple }} />
+}
 
 // https://vitest.dev/config/globals#globals
 // https://testing-library.com/docs/react-testing-library/api#cleanup
 // https://vitest.dev/api/hooks#aftereach
 // https://vitest.dev/api/hooks#beforeeach
 beforeEach(() => {
-  render(<TogglePurple {...{ isPurple, setIsPurple }} />)
+  render(<TogglePurpleMock />)
 })
 
 describe('static render test', () => {
@@ -30,5 +35,17 @@ describe('static render test', () => {
     // screen.debug()
 
     expect(labelElement).toBeInTheDocument()
+  })
+})
+
+// https://testing-library.com/docs/user-event/intro
+describe('user interactions', async () => {
+  it('should be checked after user click', async () => {
+    const checkboxElement = screen.getByRole('checkbox')
+
+    const user = userEvent.setup()
+    await user.click(checkboxElement)
+
+    expect(checkboxElement).toBeChecked()
   })
 })
