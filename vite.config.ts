@@ -34,6 +34,8 @@ export default defineConfig({
       provider: playwright(),
       // https://vitest.dev/config/browser/playwright
       instances: [{ browser: 'chromium' }],
+      // https://vitest.dev/guide/browser/trace-view
+      traceView: true,
     },
     // https://vitest.dev/config/ui.html
     ui: {
