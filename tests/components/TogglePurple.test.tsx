@@ -4,29 +4,18 @@ import { expect, test } from 'vitest'
 
 import TogglePurple from '@/components/TogglePurple'
 
+const isPurple = false
+function setIsPurple(isPurple: boolean) {}
+
+render(<TogglePurple {...{ isPurple, setIsPurple }} />)
+
 test('TogglePurple checkboxElement', () => {
-  const isPurple = false
-  function setIsPurple(isPurple: boolean) {}
-
-  // https://testing-library.com/docs/react-testing-library/api#render
-  render(<TogglePurple {...{ isPurple, setIsPurple }} />)
-
-  // https://testing-library.com/docs/queries/about#types-of-queries
-  // https://testing-library.com/docs/queries/byrole
   const checkboxElement = screen.getByRole('checkbox')
 
-  // expect(result).matcher
-  // https://testing-library.com/docs/ecosystem-jest-dom
-  // https://github.com/testing-library/jest-dom#usage
   expect(checkboxElement).toBeInTheDocument()
 })
 
 test('TogglePurple labelElement', () => {
-  const isPurple = false
-  function setIsPurple(isPurple: boolean) {}
-
-  render(<TogglePurple {...{ isPurple, setIsPurple }} />)
-
   const labelElement = screen.getByText(/purple/i)
 
   expect(labelElement).toBeInTheDocument()
