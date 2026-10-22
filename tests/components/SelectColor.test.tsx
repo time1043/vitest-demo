@@ -47,16 +47,23 @@ describe('user interactions', async () => {
     expect(optionsElement[2]).toHaveTextContent('Orange')
   })
 
-  it('should display the black text after user click the black option', async () => {
-    const optionValue = 'text-black'
+  // https: //vitest.dev/api/test
+  // https: //vitest.dev/api/test#test-each
+  it.each([
+    { optionValue: '', label: 'white' },
+    { optionValue: 'text-black', label: 'black' },
+    { optionValue: 'text-orange', label: 'orange' },
+  ])(
+    'should display the $label text after user click the $label option',
+    async ({ optionValue }) => {
+      const selectElement = screen.getByRole('combobox')
 
-    const selectElement = screen.getByRole('combobox')
+      // https://testing-library.com/docs/user-event/utility#-selectoptions-deselectoptions
+      // selectOptions: (select: Element, values: string | HTMLElement | HTMLElement[] | string[]) => Promise<void>
+      // await user.selectOptions(selectElement, optionsElement[1])
+      await user.selectOptions(selectElement, optionValue)
 
-    // https://testing-library.com/docs/user-event/utility#-selectoptions-deselectoptions
-    // selectOptions: (select: Element, values: string | HTMLElement | HTMLElement[] | string[]) => Promise<void>
-    // await user.selectOptions(selectElement, optionsElement[1])
-    await user.selectOptions(selectElement, optionValue)
-
-    expect(selectElement).toHaveValue(optionValue)
-  })
+      expect(selectElement).toHaveValue(optionValue)
+    },
+  )
 })
