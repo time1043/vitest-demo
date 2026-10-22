@@ -27,6 +27,7 @@
     "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^6.1.2",
     "babel-plugin-react-compiler": "^1.0.0",
+    "daisyui": "^5.7.50",
     "oxfmt": "^0.74.0",
     "oxlint": "^1.88.0",
     "typescript": "~6.0.3",
