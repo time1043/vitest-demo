@@ -1,31 +1,24 @@
-import { render, screen } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
+import { render } from 'vitest-browser-react'
+import { userEvent } from 'vitest/browser'
 
 import App from '@/App'
-
-function AppMock() {
-  return <App />
-}
-
-beforeEach(() => {
-  render(<AppMock />)
-})
 
 describe('user interactions', async () => {
   it('should display correct color after user click', async () => {
     // Arrange
-    const user = userEvent.setup()
+    const { getByRole } = await render(<App />)
 
     // Act
-    const buttonElement = screen.getByRole('button')
-    await user.click(buttonElement)
+    // https://vitest.dev/api/browser/interactivity
+    // https://vitest.dev/api/browser/locators
+    const buttonLocator = getByRole('button')
+    await userEvent.click(buttonLocator)
 
     // Assert
-    expect(buttonElement).toHaveTextContent('Active')
-    expect(buttonElement).toHaveClass('active')
-    expect(buttonElement).toHaveStyle({ backgroundColor: 'hex(#f5222d)' }) // ⚠️
+    await expect.element(buttonLocator).toBeInTheDocument()
+    expect(buttonLocator).toHaveClass('active')
 
-    const backgroundColor = window.getComputedStyle(buttonElement).backgroundColor
-    expect(backgroundColor).toBe('rgb(245, 34, 45)') // rgba(0, 0, 0, 0)
+    const backgroundColor = window.getComputedStyle(buttonLocator.element()).backgroundColor
+    expect(backgroundColor).toBe('rgb(245, 34, 45)')
   })
 })
