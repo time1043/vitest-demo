@@ -9,7 +9,9 @@ export default function App() {
       <p className="text-red-400">
         {count} x 2 = {doubleCount}
       </p>
-      <button onClick={() => setCount(count + 1)}>Increment</button>
+      <button className="btn" onClick={() => setCount(count + 1)}>
+        Increment
+      </button>
     </div>
   )
 }
