@@ -20,3 +20,14 @@ test('TogglePurple checkboxElement', () => {
   // https://github.com/testing-library/jest-dom#usage
   expect(checkboxElement).toBeInTheDocument()
 })
+
+test('TogglePurple labelElement', () => {
+  const isPurple = false
+  function setIsPurple(isPurple: boolean) {}
+
+  render(<TogglePurple {...{ isPurple, setIsPurple }} />)
+
+  const labelElement = screen.getByText(/purple/i)
+
+  expect(labelElement).toBeInTheDocument()
+})
