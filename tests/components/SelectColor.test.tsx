@@ -19,25 +19,31 @@ beforeEach(() => {
 
 describe('static render test', async () => {
   it('should render the select element correctly', async () => {
+    // Arrange / Act
     // https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/select#technical_summary
     const selectElement = screen.getByRole('combobox')
 
+    // Assert
     expect(selectElement).toBeInTheDocument()
   })
 
   it('should render the label element correctly', async () => {
+    // Arrange / Act
     const labelElement = screen.getByText(/text color/i)
 
+    // Assert
     expect(labelElement).toBeInTheDocument()
   })
 })
 
 describe('user interactions', async () => {
   it('should display the correct items after user click the select ', async () => {
+    // Arrange / Act
     const selectElement = screen.getByRole('combobox')
 
     await user.click(selectElement) // always run successfully whether clicked or not in jsdom
 
+    // Assert
     // https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/option#technical_summary
     const optionsElement = screen.getAllByRole('option')
     // expect(optionsElement.length).toBe(3)
@@ -56,13 +62,16 @@ describe('user interactions', async () => {
   ])(
     'should display the $label text after user click the $label option',
     async ({ optionValue }) => {
+      // Arrange
       const selectElement = screen.getByRole('combobox')
 
+      // Act
       // https://testing-library.com/docs/user-event/utility#-selectoptions-deselectoptions
       // selectOptions: (select: Element, values: string | HTMLElement | HTMLElement[] | string[]) => Promise<void>
       // await user.selectOptions(selectElement, optionsElement[1])
       await user.selectOptions(selectElement, optionValue)
 
+      // Assert
       expect(selectElement).toHaveValue(optionValue)
     },
   )
