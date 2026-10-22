@@ -6,6 +6,7 @@ export default function App() {
 
   return (
     <div>
+      <h1>Vite + React</h1>
       <p>
         {count} x 2 = {doubleCount}
       </p>
