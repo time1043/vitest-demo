@@ -20,5 +20,12 @@ export default defineConfig({
     globals: true,
     // https://vitest.dev/config/setupfiles#setupfiles
     setupFiles: ['./tests/setup.ts'],
+    // https://vitest.dev/guide/coverage#coverage-setup
+    coverage: {
+      provider: 'v8', // or 'istanbul'
+      enabled: true,
+      include: ['src/**/*.{ts,tsx}'],
+      exclude: ['src/main.tsx'],
+    },
   },
 })
