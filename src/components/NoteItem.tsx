@@ -28,7 +28,7 @@ export default function NoteItem({ note }: { note: Note }) {
   }
 
   return (
-    <div className="collapse border border-base-300 bg-base-100">
+    <li className="collapse border border-base-300 bg-base-100">
       <input type="radio" name="my-accordion-1" defaultChecked />
       <div className="collapse-title flex items-center justify-between pr-3 font-semibold lg:text-4xl">
         {note.title}
@@ -59,6 +59,6 @@ export default function NoteItem({ note }: { note: Note }) {
       </div>
 
       <div className="collapse-content text-sm lg:text-lg">{note.content}</div>
-    </div>
+    </li>
   )
 }

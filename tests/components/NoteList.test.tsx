@@ -36,6 +36,11 @@ describe('static render test', async () => {
 
     await render(<NoteListMock />)
 
+    await vi.waitFor(async () => {
+      const mainLocator = page.getByRole('main')
+      expect(mainLocator).toBeInTheDocument()
+    })
+
     // Act
 
     // Assert
