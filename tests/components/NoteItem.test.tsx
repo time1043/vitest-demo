@@ -27,13 +27,16 @@ beforeEach(async () => {
 })
 
 describe('static render test', async () => {
-  it('should render two buttons correctly', async () => {
+  it('should render the correct buttons with accessibile names', async () => {
     // Arrange
     // Act
 
     // Assert
-    const buttonsLocator = page.getByRole('button').all()
-    expect(buttonsLocator).toHaveLength(2)
+    const editButton = page.getByRole('button', { name: 'edit-button' })
+    const deleteButton = page.getByRole('button', { name: 'delete-button' })
+
+    expect(editButton).toBeInTheDocument()
+    expect(deleteButton).toBeInTheDocument()
   })
 })
 
