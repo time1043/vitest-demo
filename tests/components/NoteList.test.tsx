@@ -8,7 +8,7 @@ import NoteList from '@/components/NoteList'
 import { getNotes } from '@/services/apiNote'
 
 // import { getNotes } from '@/services/apiNote'
-vi.mock('@/services/apiNote')
+vi.mock('@/services/apiNote', { spy: true })
 
 function NoteListMock() {
   const queryClient = new QueryClient()
@@ -32,7 +32,7 @@ describe('static render test', async () => {
       { id: '2', title: 'title 2', content: 'content 2' },
     ]
 
-    vi.mocked(getNotes).mockResolvedValue(mockNotes)
+    vi.mocked(getNotes).mockResolvedValue(mockNotes) // temporary modify the return value
 
     await render(<NoteListMock />)
 
@@ -46,6 +46,12 @@ describe('static render test', async () => {
     // Assert
     const noteItemsElement = page.getByRole('listitem').elements()
     expect(noteItemsElement).toHaveLength(mockNotes.length)
+
+    expect(getNotes).toHaveBeenCalled()
+    expect(getNotes).toHaveBeenCalledTimes(1)
+    expect(getNotes).toHaveResolvedWith(mockNotes) // ✅ async
+    // expect(getNotes).toHaveReturnedWith(mockNotes) // ❌ sync
+    // AssertionError: expected "vi.fn()" to return with: [ Array(2) ] at least once
   })
 })
 
