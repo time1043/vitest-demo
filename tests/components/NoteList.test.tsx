@@ -6,6 +6,7 @@ import type { Note } from '@/types/Note'
 
 import NoteList from '@/components/NoteList'
 import { getNotes } from '@/services/apiNote'
+import '@/index.css'
 
 // import { getNotes } from '@/services/apiNote'
 vi.mock('@/services/apiNote', { spy: true })
@@ -25,7 +26,7 @@ function NoteListMock() {
 // })
 
 describe('static render test', async () => {
-  it('should render list items with correct count', async () => {
+  it('should render list items with correct count (isSuccess)', async () => {
     // Arrange
     const mockNotes: Note[] = [
       { id: '1', title: 'title 1', content: 'content 1' },
@@ -52,6 +53,23 @@ describe('static render test', async () => {
     expect(getNotes).toHaveResolvedWith(mockNotes) // ✅ async
     // expect(getNotes).toHaveReturnedWith(mockNotes) // ❌ sync
     // AssertionError: expected "vi.fn()" to return with: [ Array(2) ] at least once
+  })
+
+  it('should render the skeleton while the data is fetching (isLoading)', async () => {
+    // Arrange
+    // vi.mocked(getNotes).mockResolvedValue(undefined)
+    vi.mocked(getNotes).mockImplementation(() => {
+      // neither resolved nor rejected, always pending
+      return new Promise(() => {})
+    })
+
+    await render(<NoteListMock />)
+
+    // Act
+
+    // Assert
+    const progressBarLocator = page.getByRole('progressbar')
+    expect(progressBarLocator).toBeInTheDocument()
   })
 })
 
