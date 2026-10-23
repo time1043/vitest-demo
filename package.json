@@ -11,8 +11,7 @@
     "lint": "oxlint",
     "preview": "vite preview",
     "test": "vitest",
-    "test:ui": "vitest --ui",
-    "test:browser": "vitest --config=vitest.browser.config.ts"
+    "test:ui": "vitest --ui"
   },
   "dependencies": {
     "react": "^19.3.1",

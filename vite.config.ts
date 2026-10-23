@@ -1,6 +1,7 @@
 /// <reference types="vitest/config" />
 import babel from '@rolldown/plugin-babel'
 import react, { reactCompilerPreset } from '@vitejs/plugin-react'
+import { playwright } from '@vitest/browser-playwright'
 import { fileURLToPath, URL } from 'node:url'
 import { defineConfig } from 'vite'
 
@@ -13,8 +14,8 @@ export default defineConfig({
     },
   },
   test: {
-    // https://vitest.dev/config/environment#environment
-    environment: 'jsdom',
+    // // https://vitest.dev/config/environment#environment
+    // environment: 'jsdom',
     // https://vitest.dev/config/globals#globals
     globals: true,
     // https://vitest.dev/config/setupfiles#setupfiles
@@ -25,6 +26,13 @@ export default defineConfig({
       enabled: true,
       include: ['src/**/*.{ts,tsx}'],
       exclude: ['src/main.tsx'],
+    },
+    // https://vitest.dev/guide/browser/
+    browser: {
+      enabled: true,
+      provider: playwright(),
+      // https://vitest.dev/config/browser/playwright
+      instances: [{ browser: 'chromium' }],
     },
   },
 })
