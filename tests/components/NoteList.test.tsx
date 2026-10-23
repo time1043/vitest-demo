@@ -71,6 +71,20 @@ describe('static render test', async () => {
     const progressBarLocator = page.getByRole('progressbar')
     expect(progressBarLocator).toBeInTheDocument()
   })
+
+  it('should display the error message while the api function throws an error (isError)', async () => {
+    // Arrange
+    const errorMessage = 'error from vitest'
+    vi.mocked(getNotes).mockRejectedValue(new Error(errorMessage))
+
+    await render(<NoteListMock />)
+
+    // Act
+
+    // Assert
+    const errorAlertLocator = page.getByRole('alert')
+    await expect.element(errorAlertLocator).toBeInTheDocument()
+  })
 })
 
 describe.skip('user interactions', async () => {
