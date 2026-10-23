@@ -37,7 +37,6 @@ export default function NoteItem({ note }: { note: Note }) {
           <button
             className="btn btn-square cursor-pointer btn-accent lg:btn-lg"
             onClick={openEditModal}
-            role="edit-button"
           >
             <PencilLineIcon size={24} weight="thin" />
           </button>
@@ -47,7 +46,6 @@ export default function NoteItem({ note }: { note: Note }) {
               deleteNote(note.id)
             }}
             className="btn btn-square btn-error lg:btn-lg"
-            role="delete-button"
           >
             {isDeleting ? (
               <span className="loading loading-spinner"></span>

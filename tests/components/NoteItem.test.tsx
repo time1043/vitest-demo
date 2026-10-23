@@ -32,10 +32,8 @@ describe('static render test', async () => {
     // Act
 
     // Assert
-    const editButtonLocator = page.getByRole('edit-button')
-    const deleteButtonLocator = page.getByRole('delete-button')
-    await expect.element(editButtonLocator).toBeInTheDocument()
-    await expect.element(deleteButtonLocator).toBeInTheDocument()
+    const buttonsLocator = page.getByRole('button').all()
+    expect(buttonsLocator).toHaveLength(2)
   })
 })
 
