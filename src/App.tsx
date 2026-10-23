@@ -1,3 +1,4 @@
+import { HorseIcon } from '@phosphor-icons/react'
 import { useState } from 'react'
 
 export default function App() {
@@ -10,6 +11,7 @@ export default function App() {
         {count} x 2 = {doubleCount}
       </p>
       <button className="btn" onClick={() => setCount(count + 1)}>
+        <HorseIcon />
         Increment
       </button>
     </div>
