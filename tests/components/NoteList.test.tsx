@@ -12,7 +12,13 @@ import '@/index.css'
 vi.mock('@/services/apiNote', { spy: true })
 
 function NoteListMock() {
-  const queryClient = new QueryClient()
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        retry: false,
+      },
+    },
+  })
 
   return (
     <QueryClientProvider client={queryClient}>
