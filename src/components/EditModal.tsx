@@ -17,7 +17,7 @@ export default function EditModal() {
   const [content, setContent] = useState(note.content)
 
   // FIXME: Just for demo purposes
-  const isUpdate = note.id === 999 ? false : true
+  const isUpdate = note.id !== ''
 
   useEffect(() => {
     setTitle(note.title)
@@ -26,7 +26,7 @@ export default function EditModal() {
 
   const { mutate: updateNote, isPending: isUpdating } = useMutation({
     mutationKey: ['updateNote'],
-    mutationFn: ({ id, note }: { id: number; note: Partial<Note> }) => updateNoteById(id, note),
+    mutationFn: ({ id, note }: { id: string; note: Partial<Note> }) => updateNoteById(id, note),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['notes'] })
       closeModal('my_modal_5')

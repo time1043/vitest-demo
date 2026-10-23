@@ -8,7 +8,7 @@ export async function getNotes(): Promise<Note[] | undefined> {
   return response.json()
 }
 
-export async function deleteNoteById(id: number): Promise<Note | undefined> {
+export async function deleteNoteById(id: string): Promise<Note | undefined> {
   const response = await fetch(`${API_URL}/${id}`, {
     method: 'DELETE',
   })
@@ -16,7 +16,7 @@ export async function deleteNoteById(id: number): Promise<Note | undefined> {
   return response.json()
 }
 
-export async function updateNoteById(id: number, note: Partial<Note>): Promise<Note | undefined> {
+export async function updateNoteById(id: string, note: Partial<Note>): Promise<Note | undefined> {
   const response = await fetch(`${API_URL}/${id}`, {
     method: 'PATCH',
     headers: {
@@ -34,7 +34,7 @@ export async function createNote(note: Partial<Note>): Promise<Note | undefined>
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ ...note, id: Date.now() }),
+    body: JSON.stringify({ ...note, id: String(Date.now()) }),
   })
 
   return response.json()

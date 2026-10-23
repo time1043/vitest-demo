@@ -10,7 +10,7 @@ export default function FloatingButton() {
   function openCreateModal() {
     // Set default values for a new note
     setNote({
-      id: 999,
+      id: '',
       title: 'Example Title',
       content: 'Example Content',
     })
