@@ -8,9 +8,7 @@ export default function SelectColor({ textColor, setTextColor }: SelectColorProp
     <label>
       text color
       <select onChange={(event) => setTextColor(event.target.value)} value={textColor}>
-        <option value="" selected>
-          White
-        </option>
+        <option value="">White</option>
         <option value="text-black">Black</option>
         <option value="text-orange">Orange</option>
       </select>

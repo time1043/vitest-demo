@@ -18,8 +18,8 @@ export default defineConfig({
     // environment: 'jsdom',
     // https://vitest.dev/config/globals#globals
     globals: true,
-    // https://vitest.dev/config/setupfiles#setupfiles
-    setupFiles: ['./tests/setup.ts'],
+    // // https://vitest.dev/config/setupfiles#setupfiles
+    // setupFiles: ['./tests/setup.ts'],
     // https://vitest.dev/guide/coverage#coverage-setup
     coverage: {
       provider: 'v8', // or 'istanbul'
@@ -33,6 +33,8 @@ export default defineConfig({
       provider: playwright(),
       // https://vitest.dev/config/browser/playwright
       instances: [{ browser: 'chromium' }],
+      // https://vitest.dev/guide/browser/trace-view
+      traceView: true,
     },
   },
 })

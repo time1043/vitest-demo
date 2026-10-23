@@ -1,9 +1,8 @@
-import { render, screen } from '@testing-library/react'
 import { useState } from 'react'
+import { render } from 'vitest-browser-react'
+import { page, userEvent } from 'vitest/browser'
 
 import TogglePurple from '@/components/TogglePurple'
-
-import { user } from '../setup'
 
 function TogglePurpleMock() {
   const [isPurple, setIsPurple] = useState<boolean>(false)
@@ -15,14 +14,14 @@ function TogglePurpleMock() {
 // https://testing-library.com/docs/react-testing-library/api#cleanup
 // https://vitest.dev/api/hooks#aftereach
 // https://vitest.dev/api/hooks#beforeeach
-beforeEach(() => {
-  render(<TogglePurpleMock />)
+beforeEach(async () => {
+  await render(<TogglePurpleMock />)
 })
 
 describe('static render test', () => {
   it('should render the checkbox and the checkbox should not be checked', () => {
     // Arrange / Act
-    const checkboxElement = screen.getByRole('checkbox')
+    const checkboxElement = page.getByRole('checkbox')
 
     // Assert
     // https://github.com/testing-library/jest-dom#custom-matchers
@@ -35,7 +34,7 @@ describe('static render test', () => {
 
   it('should render the label with purple text', () => {
     // Arrange / Act
-    const labelElement = screen.getByText(/purple/i)
+    const labelElement = page.getByText(/purple/i)
     // screen.debug()
 
     // Assert
@@ -47,7 +46,8 @@ describe('static render test', () => {
 describe('user interactions', async () => {
   it('should be checked after user click', async () => {
     // Arrange
-    const checkboxElement = screen.getByRole('checkbox')
+    const user = userEvent.setup()
+    const checkboxElement = page.getByRole('checkbox')
 
     // Act
     await user.click(checkboxElement)
