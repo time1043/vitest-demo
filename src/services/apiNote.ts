@@ -3,7 +3,7 @@ import type { Note } from '@/types/Note'
 const API_URL = import.meta.env.VITE_API_URL
 
 export async function getNotes(): Promise<Note[] | undefined> {
-  const response = await fetch(API_URL)
+  const response = await fetch(`${API_URL}`)
 
   return response.json()
 }
@@ -29,7 +29,7 @@ export async function updateNoteById(id: string, note: Partial<Note>): Promise<N
 }
 
 export async function createNote(note: Partial<Note>): Promise<Note | undefined> {
-  const response = await fetch(API_URL, {
+  const response = await fetch(`${API_URL}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

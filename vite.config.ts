@@ -3,12 +3,13 @@ import babel from '@rolldown/plugin-babel'
 import tailwindcss from '@tailwindcss/vite'
 import react, { reactCompilerPreset } from '@vitejs/plugin-react'
 import { playwright } from '@vitest/browser-playwright'
+import { msw } from 'msw/vite'
 import { fileURLToPath, URL } from 'node:url'
 import { defineConfig } from 'vite'
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), babel({ presets: [reactCompilerPreset()] }), tailwindcss()],
+  plugins: [react(), babel({ presets: [reactCompilerPreset()] }), tailwindcss(), msw()],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
@@ -22,8 +23,8 @@ export default defineConfig({
     // https://vitest.dev/config/globals#globals
     globals: true,
 
-    // // https://vitest.dev/config/setupfiles#setupfiles
-    // setupFiles: ['./tests/setup.ts'],
+    // https://vitest.dev/config/setupfiles#setupfiles
+    setupFiles: ['./tests/setup.ts'],
 
     // https://vitest.dev/guide/coverage#coverage-setup
     coverage: {
