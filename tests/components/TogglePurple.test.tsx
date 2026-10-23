@@ -19,26 +19,26 @@ beforeEach(async () => {
 })
 
 describe('static render test', () => {
-  it('should render the checkbox and the checkbox should not be checked', () => {
+  it('should render the checkbox and the checkbox should not be checked', async () => {
     // Arrange / Act
     const checkboxElement = page.getByRole('checkbox')
 
     // Assert
     // https://github.com/testing-library/jest-dom#custom-matchers
     // https://vitest.dev/api/expect#not
-    expect(checkboxElement).toBeInTheDocument()
-    expect(checkboxElement).not.toBeChecked()
+    await expect.element(checkboxElement).toBeInTheDocument()
+    await expect.element(checkboxElement).not.toBeChecked()
 
     // Automatically call cleanup to unmount the component which rendered before
   })
 
-  it('should render the label with purple text', () => {
+  it('should render the label with purple text', async () => {
     // Arrange / Act
     const labelElement = page.getByText(/purple/i)
     // screen.debug()
 
     // Assert
-    expect(labelElement).toBeInTheDocument()
+    await expect.element(labelElement).toBeInTheDocument()
   })
 })
 
@@ -53,6 +53,6 @@ describe('user interactions', async () => {
     await user.click(checkboxElement)
 
     // Assert
-    expect(checkboxElement).toBeChecked()
+    await expect.element(checkboxElement).toBeChecked()
   })
 })

@@ -23,7 +23,7 @@ describe('static render test', async () => {
     const selectLocator = page.getByRole('combobox')
 
     // Assert
-    expect(selectLocator).toBeInTheDocument()
+    await expect.element(selectLocator).toBeInTheDocument()
   })
 
   it('should render the label element correctly', async () => {
@@ -31,7 +31,7 @@ describe('static render test', async () => {
     const labelLocator = page.getByText(/text color/i)
 
     // Assert
-    expect(labelLocator).toBeInTheDocument()
+    await expect.element(labelLocator).toBeInTheDocument()
   })
 })
 
@@ -73,7 +73,7 @@ describe('user interactions', async () => {
       await user.selectOptions(selectLocator, optionValue)
 
       // Assert
-      expect(selectLocator).toHaveValue(optionValue)
+      await expect.element(selectLocator).toHaveValue(optionValue)
     },
   )
 })

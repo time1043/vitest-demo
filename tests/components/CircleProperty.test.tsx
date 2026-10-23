@@ -21,7 +21,7 @@ describe('static render test', async () => {
     const inputNumberLocator = page.getByRole('spinbutton')
 
     // Assert
-    expect(inputNumberLocator).toBeInTheDocument()
+    await expect.element(inputNumberLocator).toBeInTheDocument()
   })
 
   it('should render the label element with correct text', async () => {
@@ -36,7 +36,7 @@ describe('static render test', async () => {
     const labelLocator = page.getByText(labelText)
 
     // Assert
-    expect(labelLocator).toBeInTheDocument()
+    await expect.element(labelLocator).toBeInTheDocument()
   })
 })
 
@@ -58,6 +58,6 @@ describe('user interactions', async () => {
     // await user.type(inputNumberLocator, inputNumber.toString())
 
     // Assert
-    expect(inputNumberLocator).toHaveValue(inputNumber)
+    await expect.element(inputNumberLocator).toHaveValue(inputNumber)
   })
 })
