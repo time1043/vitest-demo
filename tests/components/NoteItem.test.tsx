@@ -29,14 +29,13 @@ function NoteItemMock() {
   )
 }
 
-// beforeEach(async () => {
-//   await render(<NoteItemMock />)
-// })
+beforeEach(async () => {
+  await render(<NoteItemMock />)
+})
 
 describe('static render test', async () => {
   it('should render the correct buttons with accessibile names', async () => {
     // Arrange
-    await render(<NoteItemMock />)
 
     // Act
 
@@ -55,8 +54,6 @@ describe('user interactions', async () => {
     const user = userEvent.setup()
 
     vi.mocked(deleteNoteById).mockResolvedValue(mockNote)
-
-    await render(<NoteItemMock />)
 
     // Act
     const deleteButtonLocator = page.getByRole('button', { name: 'delete-button' })
