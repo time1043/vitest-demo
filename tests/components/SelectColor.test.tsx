@@ -36,7 +36,7 @@ describe('static render test', async () => {
 })
 
 describe('user interactions', async () => {
-  it.skip('should display the correct items after user click the select ', async () => {
+  it('should display the correct items after user click the select ', async () => {
     // Arrange / Act
     const user = userEvent.setup()
     const selectLocator = page.getByRole('combobox')
@@ -45,12 +45,12 @@ describe('user interactions', async () => {
 
     // Assert
     // https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/option#technical_summary
-    const optionsElement = page.getAllByRole('option')
+    const optionsElement = page.getByRole('option').all()
     // expect(optionsElement.length).toBe(3)
     expect(optionsElement).toHaveLength(3)
-    expect(optionsElement[0]).toHaveTextContent('White')
-    expect(optionsElement[1]).toHaveTextContent('Black')
-    expect(optionsElement[2]).toHaveTextContent('Orange')
+    await expect.element(page.getByRole('option').nth(0)).toHaveTextContent('White')
+    await expect.element(page.getByRole('option').nth(1)).toHaveTextContent('Black')
+    await expect.element(page.getByRole('option').nth(2)).toHaveTextContent('Orange')
   })
 
   // https: //vitest.dev/api/test
