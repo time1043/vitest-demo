@@ -10,6 +10,7 @@
     "fmt:check": "oxfmt --check",
     "lint": "oxlint",
     "preview": "vite preview",
+    "serve": "json-server ./data/note-mock.json",
     "test": "vitest"
   },
   "dependencies": {
@@ -30,6 +31,7 @@
     "@vitejs/plugin-react": "^6.1.2",
     "babel-plugin-react-compiler": "^1.0.0",
     "daisyui": "^5.7.50",
+    "json-server": "1.0.0-beta.3",
     "oxfmt": "^0.74.0",
     "oxlint": "^1.88.0",
     "typescript": "~6.0.3",
