@@ -1,10 +1,13 @@
 import { http, HttpResponse } from 'msw/http'
 
+import type { Note } from '@/types/Note'
+
 import { notes } from './collections/note'
 import { generateNote } from './faker/note'
 
 const API_URL = import.meta.env.VITE_API_URL
 
+// in-memory db
 await notes.createMany(10, (idx: number) => {
   return generateNote(idx + 1)
 })
@@ -21,5 +24,13 @@ export const handlers = [
     const deletedNote = notes.delete((q) => q.where({ id }))
 
     return HttpResponse.json(deletedNote)
+  }),
+  // https://mswjs.io/docs/http/intercepting-requests/body
+  http.post<{}, Note>(`${API_URL}`, async ({ request }) => {
+    const newNote = await request.clone().json()
+
+    const createdNote = await notes.create(newNote)
+
+    return HttpResponse.json(createdNote)
   }),
 ]
