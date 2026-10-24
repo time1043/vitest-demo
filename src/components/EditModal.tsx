@@ -72,24 +72,32 @@ export default function EditModal() {
         <div className="card shrink-0 bg-base-100">
           <div className="card-body">
             <fieldset className="fieldset">
-              <label className="label">Title</label>
+              <label htmlFor="title" className="label">
+                Title
+              </label>
               <input
+                id="title"
                 type="text"
                 className="input w-full"
                 placeholder="Enter the note title"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
+                aria-label="title"
               />
               <Activity mode={title.length > 35 ? 'visible' : 'hidden'}>
                 <div className="label text-red-600">Limit 35 Characters</div>
               </Activity>
 
-              <label className="label">Content</label>
+              <label htmlFor="content" className="label">
+                Content
+              </label>
               <textarea
+                id="content"
                 className="textarea w-full"
                 placeholder="Enter the note content"
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
+                aria-label="content"
               />
               <Activity mode={content.length > 100 ? 'visible' : 'hidden'}>
                 <div className="label text-red-600">Limit 100 Characters</div>

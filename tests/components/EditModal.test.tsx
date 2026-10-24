@@ -1,7 +1,10 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useAtomValue } from 'jotai'
+
+import '@/index.css'
 import { Toaster } from 'sonner'
 import { render } from 'vitest-browser-react'
+import { page } from 'vitest/browser'
 
 import type { Note } from '@/types/Note'
 
@@ -44,9 +47,20 @@ describe('EditModal', () => {
       vi.mocked(useAtomValue).mockReturnValue(mockedNoteForAdd)
 
       await renderComponent()
+      openModal('my_modal_5')
 
       // Act
+
       // Assert
+      // const titleInputLocator = page.getByRole('textbox', { name: 'title' })
+      const titleInputLocator = page.getByLabelText(/title/i)
+      await expect.element(titleInputLocator).toBeInTheDocument()
+      await expect.element(titleInputLocator).toHaveValue(mockedNoteForAdd.title)
+
+      // const contentInputLocator = page.getByRole('textbox', { name: 'content' })
+      const contentInputLocator = page.getByLabelText(/content/i)
+      await expect.element(contentInputLocator).toBeInTheDocument()
+      await expect.element(contentInputLocator).toHaveValue(mockedNoteForAdd.content)
     })
   })
 
