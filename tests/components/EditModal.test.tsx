@@ -1,6 +1,7 @@
 import { useAtomValue } from 'jotai'
 import { Toaster } from 'sonner'
 import { render } from 'vitest-browser-react'
+import { userEvent } from 'vitest/browser'
 import { page } from 'vitest/browser'
 
 import type { Note } from '@/types/Note'
@@ -22,6 +23,12 @@ vi.mock('jotai', async () => {
   return { ...originalModule, useAtomValue: vi.fn() }
 })
 
+const mockedNoteForAdd: Note = {
+  id: '',
+  title: 'dummy title',
+  content: 'dummy content',
+}
+
 describe('EditModal', () => {
   async function renderComponent() {
     return render(
@@ -34,12 +41,6 @@ describe('EditModal', () => {
   }
 
   describe('static render test', async () => {
-    const mockedNoteForAdd: Note = {
-      id: '1043',
-      title: 'dummy title',
-      content: 'dummy content',
-    }
-
     it('should render the correct content for add form with default values', async () => {
       // Arrange
       vi.mocked(useAtomValue).mockReturnValue(mockedNoteForAdd)
@@ -62,11 +63,23 @@ describe('EditModal', () => {
     })
   })
 
-  describe.skip('user interactions', async () => {
-    it('should', async () => {
+  describe('user interactions', async () => {
+    it('should render the toaster after user click the add button', async () => {
       // Arrange
+      const user = userEvent.setup()
+
+      vi.mocked(useAtomValue).mockReturnValue(mockedNoteForAdd)
+
+      await renderComponent()
+      openModal('my_modal_5')
+
       // Act
-      // Assert
+      const addButtonLocator = page.getByRole('button', { name: /add/i })
+      await user.click(addButtonLocator)
+
+      // // Assert
+      const toastLocator = page.getByText(/created successfully/i)
+      await expect.element(toastLocator).toBeInTheDocument()
     })
   })
 })
