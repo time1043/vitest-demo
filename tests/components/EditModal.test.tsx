@@ -1,7 +1,5 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useAtomValue } from 'jotai'
-
-import '@/index.css'
 import { Toaster } from 'sonner'
 import { render } from 'vitest-browser-react'
 import { page } from 'vitest/browser'

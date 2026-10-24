@@ -1,4 +1,5 @@
-import { beforeAll, afterEach, afterAll } from 'vitest'
+import '@/index.css'
+import { afterAll, afterEach, beforeAll } from 'vitest'
 
 import { worker } from './mocks/server'
 

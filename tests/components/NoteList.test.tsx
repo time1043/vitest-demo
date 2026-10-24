@@ -1,6 +1,4 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-
-import '@/index.css'
 import { http, HttpResponse } from 'msw/http'
 import { delay } from 'msw/utils/delay'
 import { render } from 'vitest-browser-react'

@@ -1,6 +1,4 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-
-import '@/index.css'
 import { Toaster } from 'sonner'
 import { render } from 'vitest-browser-react'
 import { page, userEvent } from 'vitest/browser'
