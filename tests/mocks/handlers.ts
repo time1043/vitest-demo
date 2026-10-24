@@ -13,4 +13,13 @@ export const handlers = [
   http.get(`${API_URL}`, () => {
     return HttpResponse.json(notes.all())
   }),
+  // https://mswjs.io/docs/http/intercepting-requests/path-parameters
+  http.delete<{ id: string }>(`${API_URL}/:id`, ({ params }) => {
+    const { id } = params
+
+    // https://mswjs.io/ecosystem/data/querying
+    const deletedNote = notes.delete((q) => q.where({ id }))
+
+    return HttpResponse.json(deletedNote)
+  }),
 ]

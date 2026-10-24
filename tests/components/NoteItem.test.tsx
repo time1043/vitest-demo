@@ -8,9 +8,8 @@ import { page, userEvent } from 'vitest/browser'
 import type { Note } from '@/types/Note'
 
 import NoteItem from '@/components/NoteItem'
-import { deleteNoteById } from '@/services/apiNote'
 
-vi.mock('@/services/apiNote', { spy: true })
+import { notes } from '../mocks/collections/note'
 
 const mockNote: Note = {
   id: '1043',
@@ -30,6 +29,7 @@ function NoteItemMock() {
 }
 
 beforeEach(async () => {
+  await notes.create(mockNote)
   await render(<NoteItemMock />)
 })
 
@@ -52,8 +52,6 @@ describe('user interactions', async () => {
   it('should render the toaster after user click the delete button and success delete', async () => {
     // Arrange
     const user = userEvent.setup()
-
-    vi.mocked(deleteNoteById).mockResolvedValue(mockNote)
 
     // Act
     const deleteButtonLocator = page.getByRole('button', { name: 'delete-button' })
