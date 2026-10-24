@@ -15,25 +15,21 @@ const mockNote: Note = {
   content: 'dummy content',
 }
 
-function NoteItemMock() {
+async function renderComponent() {
   const queryClient = new QueryClient()
 
-  return (
+  return render(
     <QueryClientProvider client={queryClient}>
       <NoteItem note={mockNote} />
       <Toaster />
-    </QueryClientProvider>
+    </QueryClientProvider>,
   )
 }
-
-beforeEach(async () => {
-  await notes.create(mockNote)
-  await render(<NoteItemMock />)
-})
 
 describe('static render test', async () => {
   it('should render the correct buttons with accessibile names', async () => {
     // Arrange
+    await renderComponent()
 
     // Act
 
@@ -50,6 +46,9 @@ describe('user interactions', async () => {
   it('should render the toaster after user click the delete button and success delete', async () => {
     // Arrange
     const user = userEvent.setup()
+
+    await renderComponent()
+    await notes.create(mockNote)
 
     // Act
     const deleteButtonLocator = page.getByRole('button', { name: 'delete-button' })

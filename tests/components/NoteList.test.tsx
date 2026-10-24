@@ -10,7 +10,7 @@ import { worker } from '../mocks/server'
 
 const API_URL = import.meta.env.VITE_API_URL
 
-function NoteListMock() {
+async function renderComponent() {
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
@@ -19,21 +19,17 @@ function NoteListMock() {
     },
   })
 
-  return (
+  return render(
     <QueryClientProvider client={queryClient}>
       <NoteList />
-    </QueryClientProvider>
+    </QueryClientProvider>,
   )
 }
-
-// beforeEach(async () => {
-//   await render(<NoteListMock />)
-// })
 
 describe('static render test', async () => {
   it('should render list items with correct count (isSuccess)', async () => {
     // Arrange
-    await render(<NoteListMock />)
+    await renderComponent()
 
     await vi.waitFor(async () => {
       const mainLocator = page.getByRole('main')
@@ -56,7 +52,7 @@ describe('static render test', async () => {
       }),
     )
 
-    await render(<NoteListMock />)
+    await renderComponent()
 
     // Act
 
@@ -73,7 +69,7 @@ describe('static render test', async () => {
       }),
     )
 
-    await render(<NoteListMock />)
+    await renderComponent()
 
     // Act
 
