@@ -1,13 +1,16 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+
+import '@/index.css'
+import { http, HttpResponse } from 'msw/http'
+import { delay } from 'msw/utils/delay'
 import { render } from 'vitest-browser-react'
 import { page } from 'vitest/browser'
 
 import NoteList from '@/components/NoteList'
-import '@/index.css'
-import { getNotes } from '@/services/apiNote'
 
-// import { getNotes } from '@/services/apiNote'
-vi.mock('@/services/apiNote', { spy: true })
+import { worker } from '../mocks/server'
+
+const API_URL = import.meta.env.VITE_API_URL
 
 function NoteListMock() {
   const queryClient = new QueryClient({
@@ -46,13 +49,14 @@ describe('static render test', async () => {
     expect(noteItemsElement.length).toBeGreaterThan(0)
   })
 
-  it.skip('should render the skeleton while the data is fetching (isLoading)', async () => {
+  it('should render the skeleton while the data is fetching (isLoading)', async () => {
     // Arrange
-    // vi.mocked(getNotes).mockResolvedValue(undefined)
-    vi.mocked(getNotes).mockImplementation(() => {
-      // neither resolved nor rejected, always pending
-      return new Promise(() => {})
-    })
+    worker.use(
+      http.get(`${API_URL}`, async () => {
+        await delay()
+        return HttpResponse.json([])
+      }),
+    )
 
     await render(<NoteListMock />)
 
@@ -63,10 +67,13 @@ describe('static render test', async () => {
     expect(progressBarLocator).toBeInTheDocument()
   })
 
-  it.skip('should display the error message while the api function throws an error (isError)', async () => {
+  it('should display the error message while the api function throws an error (isError)', async () => {
     // Arrange
-    const errorMessage = 'error from vitest'
-    vi.mocked(getNotes).mockRejectedValue(new Error(errorMessage))
+    worker.use(
+      http.get(`${API_URL}`, () => {
+        return HttpResponse.error()
+      }),
+    )
 
     await render(<NoteListMock />)
 
