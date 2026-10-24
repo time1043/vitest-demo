@@ -1,4 +1,3 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { Toaster } from 'sonner'
 import { render } from 'vitest-browser-react'
 import { page, userEvent } from 'vitest/browser'
@@ -8,6 +7,7 @@ import type { Note } from '@/types/Note'
 import NoteItem from '@/components/NoteItem'
 
 import { notes } from '../mocks/collections/note'
+import Provider from '../provider'
 
 const mockNote: Note = {
   id: '1043',
@@ -16,13 +16,12 @@ const mockNote: Note = {
 }
 
 async function renderComponent() {
-  const queryClient = new QueryClient()
-
   return render(
-    <QueryClientProvider client={queryClient}>
+    <>
       <NoteItem note={mockNote} />
       <Toaster />
-    </QueryClientProvider>,
+    </>,
+    { wrapper: Provider },
   )
 }
 

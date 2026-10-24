@@ -1,4 +1,3 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { http, HttpResponse } from 'msw/http'
 import { delay } from 'msw/utils/delay'
 import { render } from 'vitest-browser-react'
@@ -7,23 +6,12 @@ import { page } from 'vitest/browser'
 import NoteList from '@/components/NoteList'
 
 import { worker } from '../mocks/server'
+import Provider from '../provider'
 
 const API_URL = import.meta.env.VITE_API_URL
 
 async function renderComponent() {
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        retry: false,
-      },
-    },
-  })
-
-  return render(
-    <QueryClientProvider client={queryClient}>
-      <NoteList />
-    </QueryClientProvider>,
-  )
+  return render(<NoteList />, { wrapper: Provider })
 }
 
 describe('static render test', async () => {

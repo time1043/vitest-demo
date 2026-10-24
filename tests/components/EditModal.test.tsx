@@ -1,4 +1,3 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useAtomValue } from 'jotai'
 import { Toaster } from 'sonner'
 import { render } from 'vitest-browser-react'
@@ -8,6 +7,8 @@ import type { Note } from '@/types/Note'
 
 import EditModal from '@/components/EditModal'
 import { openModal } from '@/hooks/useModel'
+
+import Provider from '../provider'
 
 // vi.mock('jotai', () => ({
 //   useAtomValue: () => ({
@@ -23,13 +24,12 @@ vi.mock('jotai', async () => {
 
 describe('EditModal', () => {
   async function renderComponent() {
-    const queryClient = new QueryClient()
-
     return render(
-      <QueryClientProvider client={queryClient}>
+      <>
         <EditModal />
         <Toaster />
-      </QueryClientProvider>,
+      </>,
+      { wrapper: Provider },
     )
   }
 
